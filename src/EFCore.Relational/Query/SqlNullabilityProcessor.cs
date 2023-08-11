@@ -1321,7 +1321,8 @@ public class SqlNullabilityProcessor
         bool allowOptimizedExpansion,
         out bool nullable)
     {
-        nullable = ParameterValues[sqlParameterExpression.Name] == null;
+        if (ParameterValues.ContainsKey(sqlParameterExpression.Name))
+            nullable = ParameterValues[sqlParameterExpression.Name] == null;
 
         return nullable
             ? _sqlExpressionFactory.Constant(null, sqlParameterExpression.TypeMapping)
